@@ -1,13 +1,24 @@
 """Test the 20news downloader, if the data is available."""
 import numpy as np
 import scipy.sparse as sp
-
+import os
 from sklearn.utils.testing import assert_equal
 from sklearn.utils.testing import assert_true
 from sklearn.utils.testing import SkipTest
-
+from sklearn.datasets.base import _pkl_filepath
 from sklearn import datasets
+from sklearn.datasets.base import get_data_home
+from sklearn.datasets.twenty_newsgroups import download_20newsgroups
 
+#my test below
+def test_20news_test():
+    data_home=None
+    data_home = get_data_home(data_home=data_home)
+    CACHE_NAME = "20news-bydate.pkz"
+    twenty_home = os.path.join(data_home, "20news_home")
+    cache_path = _pkl_filepath(data_home, CACHE_NAME)
+    download_20newsgroups(target_dir=twenty_home,cache_path=cache_path)
+#my tests above
 
 def test_20news():
     try:
