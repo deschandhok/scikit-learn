@@ -1,6 +1,10 @@
-from sklearn.utils.testing import assert_array_equal
+from sklearn.utils.testing import assert_array_equal, assert_raises
 
 from sklearn.utils.stats import rankdata
+
+from sklearn.utils.stats import _rankdata
+
+import numpy as np
 
 
 _cases = (
@@ -21,3 +25,11 @@ def test_cases():
 
     for values, method, expected in _cases:
         yield check_case, values, method, expected
+
+#mycode below
+def test_not_implemented():
+   assert_raises(NotImplementedError, _rankdata, np.array([2,10,8,17]), method="average")
+
+def test_rank_rankdata():
+   r = _rankdata (np.array([2,10,8,17]), method="max")
+#mycode above

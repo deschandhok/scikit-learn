@@ -19,6 +19,16 @@ from sklearn.utils.fixes import astype
 from sklearn.utils.fixes import MaskedArray
 from sklearn.utils.fixes import norm
 
+#below is my code
+
+def test_divide_m():
+
+
+    divide(3, 4)
+
+
+
+#above is my code
 
 def test_expit():
     # Check numerical stability of expit (logistic function).

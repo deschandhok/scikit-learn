@@ -18,7 +18,7 @@ from sklearn.datasets import load_iris
 from sklearn.datasets import load_breast_cancer
 from sklearn.datasets import load_boston
 from sklearn.datasets.base import Bunch
-
+import logging
 from sklearn.externals.six import b, u
 
 from sklearn.utils.testing import assert_false
@@ -114,6 +114,11 @@ def test_load_files_wo_load_content():
 
 
 def test_load_sample_images():
+    root = logging.getLogger()
+    root.setLevel(logging.DEBUG)
+    ch = logging.StreamHandler(sys.stdout) 
+    ch.setLevel(logging.DEBUG)
+    root.addHandler(ch)
     try:
         res = load_sample_images()
         assert_equal(len(res.images), 2)

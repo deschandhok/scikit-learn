@@ -102,6 +102,7 @@ except TypeError:
         out /= x2
         if out_orig is None and np.isscalar(x1):
             out = np.asscalar(out)
+        print out
         return out
 
 

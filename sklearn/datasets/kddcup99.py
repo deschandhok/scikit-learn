@@ -21,7 +21,7 @@ except ImportError:
     from urllib.request import urlopen
 
 import numpy as np
-
+import warnings
 from .base import get_data_home
 from .base import Bunch
 from ..externals import joblib, six
@@ -34,9 +34,6 @@ URL10 = ('http://archive.ics.uci.edu/ml/'
 
 URL = ('http://archive.ics.uci.edu/ml/'
        'machine-learning-databases/kddcup99-mld/kddcup.data.gz')
-
-
-logger = logging.getLogger()
 
 
 def fetch_kddcup99(subset=None, shuffle=False, random_state=None,
@@ -162,7 +159,6 @@ def fetch_kddcup99(subset=None, shuffle=False, random_state=None,
     """
     kddcup99 = _fetch_brute_kddcup99(shuffle=shuffle, percent10=percent10,
                                      download_if_missing=download_if_missing)
-
     data = kddcup99.data
     target = kddcup99.target
 
@@ -257,7 +253,7 @@ def _fetch_brute_kddcup99(subset=None, data_home=None,
             Description of the kddcup99 dataset.
 
     """
-
+  
     data_home = get_data_home(data_home=data_home)
     if sys.version_info[0] == 3:
         # The zlib compression format use by joblib is not compatible when
@@ -274,11 +270,9 @@ def _fetch_brute_kddcup99(subset=None, data_home=None,
     samples_path = join(kddcup_dir, "samples")
     targets_path = join(kddcup_dir, "targets")
     available = exists(samples_path)
-
     if download_if_missing and not available:
         _mkdirp(kddcup_dir)
         URL_ = URL10 if percent10 else URL
-        logger.warning("Downloading %s" % URL_)
         f = BytesIO(urlopen(URL_).read())
 
         dt = [('duration', int),

@@ -20,6 +20,7 @@ from os.path import isdir
 from os.path import splitext
 from os import listdir
 from os import makedirs
+import logging
 
 import numpy as np
 
@@ -93,6 +94,7 @@ def get_data_home(data_home=None):
     data_home = expanduser(data_home)
     if not exists(data_home):
         makedirs(data_home)
+    
     return data_home
 
 

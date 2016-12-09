@@ -124,7 +124,6 @@ def generalized_exponential(theta, d):
         An array with shape (n_eval, ) with the values of the autocorrelation
         model.
     """
-
     theta = np.asarray(theta, dtype=np.float64)
     d = np.asarray(d, dtype=np.float64)
 
@@ -139,11 +138,9 @@ def generalized_exponential(theta, d):
     elif lth != n_features + 1:
         raise Exception("Length of theta must be 2 or %s" % (n_features + 1))
     else:
-        theta = theta.reshape(1, lth)
-
+        theta = theta.reshape(1, lth) 
     td = theta[:, 0:-1].reshape(1, n_features) * np.abs(d) ** theta[:, -1]
     r = np.exp(- np.sum(td, 1))
-
     return r
 
 

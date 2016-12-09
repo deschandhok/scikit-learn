@@ -6,6 +6,7 @@ from scipy.misc import comb as combinations
 from numpy.testing import assert_array_almost_equal
 from sklearn.utils.random import sample_without_replacement
 from sklearn.utils.random import random_choice_csc
+from sklearn.utils.random import choice
 
 from sklearn.utils.testing import (
     assert_raises,
@@ -16,6 +17,7 @@ from sklearn.utils.testing import (
 ###############################################################################
 # test custom sampling without replacement algorithm
 ###############################################################################
+
 #stuff I did is below
 def test_choice_a_n_dimensional():
    y = np.zeros((2, 3, 4))
@@ -84,6 +86,9 @@ def test_0_d_array():
 
 
 #stuff I did is above
+
+
+
 
 def test_invalid_sample_without_replacement_algorithm():
     assert_raises(ValueError, sample_without_replacement, 5, 4, "unknown")
