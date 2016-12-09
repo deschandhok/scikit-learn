@@ -29,7 +29,7 @@ inplace:
 	$(PYTHON) setup.py build_ext -i
 
 test-code: in
-	$(NOSETESTS) -s -v sklearn
+	$(NOSETESTS) -s -v --with-coverage sklearn
 test-sphinxext:
 	$(NOSETESTS) -s -v doc/sphinxext/
 test-doc:
