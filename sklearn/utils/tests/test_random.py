@@ -16,6 +16,75 @@ from sklearn.utils.testing import (
 ###############################################################################
 # test custom sampling without replacement algorithm
 ###############################################################################
+#stuff I did is below
+def test_choice_a_n_dimensional():
+   y = np.zeros((2, 3, 4))
+   assert_raises(ValueError, choice, y)
+
+def test_choice_a_zero_dimensional_pop_size_less_than_zero():
+   assert_raises(ValueError, choice, -2)
+
+
+def test_choice_a_one_dimensional_pop_size():
+   assert_raises(ValueError, choice, np.array([]))
+
+
+def test_choice_a_zero_dimensional_pop_size():
+   assert_raises(ValueError, choice, 's')
+
+
+
+def test_choice_p_not_Non_1_dimensional():
+   assert_raises(ValueError, choice, 3, p=np.zeros((0.2, 0.7, 0.1)))
+   
+
+def test_choice_p_size_not_equal_pop_size():
+   assert_raises(ValueError, choice, 3, p=np.array([0.6, 0.1]))
+
+def test_choice_p_less_than_zero():
+   assert_raises(ValueError, choice, 3, p=np.array([-0.6, 0.1, 0.3]))
+
+def test_choice_p_not_equal_one():
+   assert_raises(ValueError, choice, 3, p=np.array([0.9, 0.1, 0.3]))
+
+
+def test_returns_1d_scalar_object_based_off_distribution():
+   keeper = choice(3, replace=False, p= np.array([0,0,1.0]))
+   assert_equal(keeper, 2)
+
+
+#if np.sum(p > 0) < size: 
+#raise ValueError("Fewer non-zero entries in p than size") 
+def test_sum_more_p_zero_than_size():
+   assert_raises(ValueError, choice, 4, size=3, replace= False, p=np.array([0, 0, 0.5, 0.5]))
+
+
+#if size > pop_size: 
+#raise ValueError("Cannot take a larger sample than ""population when 'replace=False'")
+def test_size_greater_than_pop_size():
+   assert_raises(ValueError, choice, 4, size=5, replace= False)
+
+
+# idx = random_state.randint(0, pop_size, size=shape) 
+def test_non_p_array():
+   keeper = choice(np.array(1), size=())
+   assert_equal(keeper[()], 0)
+
+
+#if shape is not None and idx.ndim == 0: 
+
+# If size == () then the user requested a 0-d array as opposed to 
+# a scalar object when size is None. However a[idx] is always a 
+# scalar and not an array. So this makes sure the result is an 
+# array, taking into account that np.array(item) may not work 
+# for object arrays. 
+def test_0_d_array():
+   keeper = choice(4, size=(), p=np.array([0, 0, 0.0, 1.0]))
+   assert_equal(keeper[()], 3)
+
+
+#stuff I did is above
+
 def test_invalid_sample_without_replacement_algorithm():
     assert_raises(ValueError, sample_without_replacement, 5, 4, "unknown")
 
