@@ -27,9 +27,15 @@ def test_cases():
         yield check_case, values, method, expected
 
 #mycode below
+
+#raise NotImplementedError()
+#seeded fault is line 40
 def test_not_implemented():
    assert_raises(NotImplementedError, _rankdata, np.array([2,10,8,17]), method="average")
 
+#seeded fault is line 51
 def test_rank_rankdata():
    r = _rankdata (np.array([2,10,8,17]), method="max")
+   assert_array_equal(r, np.array([1, 3, 2, 4]))
+
 #mycode above

@@ -13,6 +13,11 @@ from sklearn.utils.testing import assert_equal
 from sklearn.utils.testing import assert_true
 from sklearn.utils.testing import SkipTest
 
+#my tests below
+def test_fetch_rcv1_true():
+   fetch_rcv1(download_if_missing=True, shuffle=True)
+
+#my test above
 
 def test_fetch_rcv1():
     try:

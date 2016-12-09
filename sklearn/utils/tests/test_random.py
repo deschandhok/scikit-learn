@@ -19,60 +19,78 @@ from sklearn.utils.testing import (
 ###############################################################################
 
 #stuff I did is below
+
+
+#raise ValueError("a must be 1-dimensional")
+#seeded fault is line 134 in random.py
 def test_choice_a_n_dimensional():
    y = np.zeros((2, 3, 4))
    assert_raises(ValueError, choice, y)
 
+#raise ValueError("a must be greater than 0")
+#seeded fault is line 127
 def test_choice_a_zero_dimensional_pop_size_less_than_zero():
    assert_raises(ValueError, choice, -2)
 
-
+#raise ValueError("a must be non-empty")
+#seeded faults are lines ~141-146
 def test_choice_a_one_dimensional_pop_size():
-   assert_raises(ValueError, choice, np.array([]))
+   assert_raises(ValueError, choice, np.array([0]))
 
 
+#raise ValueError("a must be 1-dimensional or an integer")
+#seeded fault is line 118
 def test_choice_a_zero_dimensional_pop_size():
    assert_raises(ValueError, choice, 's')
 
 
-
+#raise ValueError("p must be 1-dimensional")
+#seeded fault is line 157
 def test_choice_p_not_Non_1_dimensional():
    assert_raises(ValueError, choice, 3, p=np.zeros((0.2, 0.7, 0.1)))
    
-
+#raise ValueError("a and p must have same size")
+#seeded fault is line 164
 def test_choice_p_size_not_equal_pop_size():
    assert_raises(ValueError, choice, 3, p=np.array([0.6, 0.1]))
 
+# raise ValueError("probabilities are not non-negative")
+#seeded fault is line 171
 def test_choice_p_less_than_zero():
    assert_raises(ValueError, choice, 3, p=np.array([-0.6, 0.1, 0.3]))
 
+#raise ValueError("probabilities do not sum to 1")
+#seeded fault is line 178
 def test_choice_p_not_equal_one():
    assert_raises(ValueError, choice, 3, p=np.array([0.9, 0.1, 0.3]))
 
-
+#seeded fault is line 253
 def test_returns_1d_scalar_object_based_off_distribution():
    keeper = choice(3, replace=False, p= np.array([0,0,1.0]))
    assert_equal(keeper, 2)
 
 
-#if np.sum(p > 0) < size: 
 #raise ValueError("Fewer non-zero entries in p than size") 
+#seeded fault is line 218
 def test_sum_more_p_zero_than_size():
    assert_raises(ValueError, choice, 4, size=3, replace= False, p=np.array([0, 0, 0.5, 0.5]))
 
 
-#if size > pop_size: 
 #raise ValueError("Cannot take a larger sample than ""population when 'replace=False'")
+#seeded fault is line 209
 def test_size_greater_than_pop_size():
    assert_raises(ValueError, choice, 4, size=5, replace= False)
 
 
 # idx = random_state.randint(0, pop_size, size=shape) 
+#seeded fault is line 201
 def test_non_p_array():
    keeper = choice(np.array(1), size=())
    assert_equal(keeper[()], 0)
 
 
+#Disregard this last test
+'''
 #if shape is not None and idx.ndim == 0: 
 
 # If size == () then the user requested a 0-d array as opposed to 
@@ -83,7 +101,7 @@ def test_non_p_array():
 def test_0_d_array():
    keeper = choice(4, size=(), p=np.array([0, 0, 0.0, 1.0]))
    assert_equal(keeper[()], 3)
-
+'''
 
 #stuff I did is above
 

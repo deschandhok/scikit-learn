@@ -6,6 +6,12 @@ Skipped if covtype is not already downloaded to data_home.
 from sklearn.datasets import fetch_covtype
 from sklearn.utils.testing import assert_equal, SkipTest
 
+#my tests below
+def test_fetch_covtype_true():
+    fetch_covtype(download_if_missing=True, shuffle = True)
+
+#my tests above
+
 
 def fetch(*args, **kwargs):
     return fetch_covtype(*args, download_if_missing=False, **kwargs)

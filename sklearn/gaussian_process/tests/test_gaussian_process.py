@@ -11,7 +11,7 @@ from sklearn.gaussian_process import GaussianProcess
 from sklearn.gaussian_process import regression_models as regression
 from sklearn.gaussian_process import correlation_models as correlation
 from sklearn.datasets import make_regression
-from sklearn.utils.testing import assert_greater, assert_true, raises, assert_raises
+from sklearn.utils.testing import assert_greater, assert_true, raises, assert_raises, assert_array_equal
 
 
 
@@ -21,44 +21,35 @@ X2 = np.atleast_2d([2., 4., 5.5, 6.5, 7.5]).T
 y = f(X).ravel()
 
 
-#my tests below
+#my tests are below
 
+
+#seeded fault is line 147 in corelation_models
 def test_generalized_exponential(regr=regression.constant, corr=correlation.generalized_exponential, random_start=10, beta0=None):
+   X = np.array([[1, 1],
+                  [0, 1],
+                  [0, 0],
+                  [0, 1],
+                  [1, 0],
+                  [1, 0]])
 
-   gp = GaussianProcess(regr=regr, corr=corr, beta0=beta0,
-                         theta0=1e-2, thetaL=1e-4, thetaU=1e-1,
-                         random_start=random_start, verbose=False)
+   theta = np.array([1, 1, 1])
 
-   X = np.array([[-4.61611719, -6.00099547],
-                  [4.10469096, 5.32782448],
-                  [0.00000000, -0.50000000],
-                  [-6.17289014, -4.6984743],
-                  [1.3109306, -6.93271427],
-                  [-5.03823144, 3.10584743],
-                  [-2.87600388, 6.74310541],
-                  [5.21301203, 4.26386883]])
-
-   assert_raises(Exception, gp.fit, X, y)
-   theta = np.array([0.001, 0.003, 0.05])
    answer = correlation.generalized_exponential(theta, X)
-   answer =np.round(answer)
-   assert_true(np.allclose(answer, 1))
-
-   
+   assert_true(np.allclose(answer, np.array([ 0.135335,  0.367879,  1,  0.367879,  0.367879,  0.367879])))
 
 
+#seeded fault is line 188 in corelation_models
 def test_pure_nugget():
-   
-   X = np.array([[-4.61611719, -6.00099547],
-                  [4.10469096, 5.32782448],
-                  [0.00000000, -0.50000000],
-                  [-6.17289014, -4.6984743],
-                  [1.3109306, -6.93271427],
-                  [-5.03823144, 3.10584743],
-                  [-2.87600388, 6.74310541],
-                  [5.21301203, 4.26386883]])
+   X = np.array([[0, 0, 0],
+                  [0, 1, 3],
+                  [0, 1, 6],
+                  [0, 1, 2],
+                  [0, 1, 4],
+                  [0, 0, 0]])
 
-   correlation.pure_nugget(0.2, X)
+   answer = correlation.pure_nugget(-0.865, X)
+   assert_array_equal(answer, np.array([ 1,0 ,0, 0, 0, 1]))
 
 #my tests above
 
