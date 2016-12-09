@@ -35,7 +35,7 @@ def test_choice_a_zero_dimensional_pop_size_less_than_zero():
 #raise ValueError("a must be non-empty")
 #seeded faults are lines ~141-146
 def test_choice_a_one_dimensional_pop_size():
-   assert_raises(ValueError, choice, np.array([0]))
+   assert_raises(ValueError, choice, np.array([]))
 
 
 #raise ValueError("a must be 1-dimensional or an integer")
