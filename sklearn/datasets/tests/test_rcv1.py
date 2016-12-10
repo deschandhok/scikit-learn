@@ -14,10 +14,23 @@ from sklearn.utils.testing import assert_true
 from sklearn.utils.testing import SkipTest
 
 #my tests below
-def test_fetch_rcv1_true():
-   fetch_rcv1(download_if_missing=True, shuffle=True)
 
-#my test above
+def test_fetch_rcv1_true_and_test():
+   hold = fetch_rcv1(download_if_missing=True, shuffle=True)
+
+   data3 = fetch_rcv1(download_if_missing=False, shuffle=True, subset= "test")
+   X3, Y3 = data3.data, data3.target
+   catlist2, s3 = data3.target_names.tolist(), data3.sample_id
+   
+   assert_equal((781265, 47236), X3.shape)
+   assert_equal((781265, 103), Y3.shape)
+
+
+   first_categories = [u'C11', u'C12', u'C13', u'C14', u'C15', u'C151']
+   assert_array_equal(first_categories, catlist2[:6])
+
+#my tests above
+
 
 def test_fetch_rcv1():
     try:
@@ -28,6 +41,7 @@ def test_fetch_rcv1():
 
     X1, Y1 = data1.data, data1.target
     cat_list, s1 = data1.target_names.tolist(), data1.sample_id
+
 
     # test sparsity
     assert_true(sp.issparse(X1))

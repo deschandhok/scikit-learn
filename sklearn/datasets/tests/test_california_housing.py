@@ -10,10 +10,14 @@ from sklearn.utils.testing import assert_true, assert_raises
 from sklearn.utils.testing import SkipTest
 
 #my tests below
+def test_fetch_california_housing_false():
+    data = fetch_california_housing(download_if_missing=True)
+    assert_equal(data.data.shape, (20640, 8))
+    assert_equal(data.target.shape, (20640,))
 
-def test_fetch_california_housing_true():
-    assert_raises(IOError, fetch_california_housing, download_if_missing=False)
-    fetch_california_housing(download_if_missing=True)
-    fetch_california_housing(download_if_missing=False)
+    feature_names = ["MedInc", "HouseAge", "AveRooms", "AveBedrms",
+                     "Population", "AveOccup", "Latitude", "Longitude"]
+    assert_array_equal(feature_names, data.feature_names)
+   
 
 #my tests above

@@ -4,11 +4,19 @@ Skipped if covtype is not already downloaded to data_home.
 """
 
 from sklearn.datasets import fetch_covtype
-from sklearn.utils.testing import assert_equal, SkipTest
-
+from sklearn.utils.testing import assert_equal, assert_array_equal, SkipTest, assert_false
+import numpy as np
 #my tests below
-def test_fetch_covtype_true():
-    fetch_covtype(download_if_missing=True, shuffle = True)
+
+def test_fetch_covtype_true_shuffle():
+    hold1 = fetch_covtype(download_if_missing=True, shuffle = True)
+    hold2 = fetch_covtype(download_if_missing=False, shuffle = False)
+
+    data1, data2 = hold1['data'], hold2['data']
+    target1, target2 = hold1['data'], hold2['data']
+
+    assert_false(np.array_equal(data1, data2))
+    assert_false(np.array_equal(target1, target2))
 
 #my tests above
 

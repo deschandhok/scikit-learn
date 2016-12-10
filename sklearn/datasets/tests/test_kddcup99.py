@@ -6,13 +6,17 @@ scikit-learn data folder.
 """
 
 from sklearn.datasets import fetch_kddcup99
-from sklearn.utils.testing import assert_equal, SkipTest
+from sklearn.utils.testing import assert_equal, SkipTest, assert_true
 
 #my code below
 
 #seeded fault is line 201
 def test_download_percent10():
     data = fetch_kddcup99(download_if_missing=True, percent10=True)
+    
+    assert_true(data.data.shape[0] < 494021)
+
+
 
 #my code above
 

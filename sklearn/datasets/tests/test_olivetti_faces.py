@@ -10,8 +10,11 @@ from sklearn.utils.testing import SkipTest
 
 #stuff I did is below
 def test_species_distributions_true():
-    assert_raises(IOError, fetch_olivetti_faces, download_if_missing=False)
-    fetch_olivetti_faces(shuffle= True, download_if_missing=True)
-    fetch_olivetti_faces(shuffle= False, download_if_missing=False)
+    data = fetch_olivetti_faces(shuffle= True, download_if_missing=True)
+
+    assert_equal(data.data.shape, (400, 4096))
+    assert_equal(data.images.shape, (400, 64, 64))
+    assert_equal(data.target.shape, (400, ))
+
 
 #stuff I did is above

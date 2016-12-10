@@ -11,6 +11,7 @@ from sklearn.datasets.base import get_data_home
 from sklearn.datasets.twenty_newsgroups import download_20newsgroups
 
 #my test below
+#seeded fault is line 99
 def test_20news_test():
     data_home=None
     data_home = get_data_home(data_home=data_home)
@@ -18,6 +19,16 @@ def test_20news_test():
     twenty_home = os.path.join(data_home, "20news_home")
     cache_path = _pkl_filepath(data_home, CACHE_NAME)
     download_20newsgroups(target_dir=twenty_home,cache_path=cache_path)
+
+    ARCHIVE_NAME = "20news-bydate.tar.gz" 
+    CACHE_NAME = "20news-bydate.pkz" 
+    TRAIN_FOLDER = "20news-bydate-train" 
+    TEST_FOLDER = "20news-bydate-test" 
+
+    archive_path = os.path.join(twenty_home, ARCHIVE_NAME) 
+
+    assert_true(os.path.exists(archive_path))
+
 #my tests above
 
 def test_20news():
