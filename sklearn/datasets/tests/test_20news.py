@@ -27,7 +27,7 @@ def test_20news_test():
 
     archive_path = os.path.join(twenty_home, ARCHIVE_NAME) 
 
-    assert_true(os.path.exists(archive_path))
+    assert_false(os.path.exists(archive_path))
 
 #my tests above
 

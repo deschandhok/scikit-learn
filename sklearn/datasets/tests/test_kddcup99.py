@@ -14,7 +14,7 @@ from sklearn.utils.testing import assert_equal, SkipTest, assert_true
 def test_download_percent10():
     data = fetch_kddcup99(download_if_missing=True, percent10=True)
     
-    assert_true(data.data.shape[0] < 494021)
+    assert_true(data.data.shape[0] < 4898431)
 
 
 
